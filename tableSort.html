@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	#demo{width:100px;height:100px;border:2px solid;background:#fff;position:relative;}
+	#demo:after,#demo:before{content:"";width:0;height:0;position:absolute;left:100px;border:solid transparent;}
+	#demo:after{border-width:10px;top:20px;border-left-color:#fff;}
+	#demo:before{border-width:12px;top:18px;border-left-color:#000;}
+	table{border-collapse:collapse;}
+	th,td{border:1px solid;}
+	th{background:grey;}
+	</style>
+</head>
+<body>
+	<div id="demo"></div>
+
+	<table class="sort">
+		<thead>
+			<tr>
+				<th>姓名</th>
+				<th>力量</th>
+				<th>敏捷</th>
+				<th>智力</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>德鲁伊</td>
+				<td>17</td>
+				<td>24</td>
+				<td>13</td>
+			</tr>
+			<tr>
+			    <td>月之骑士</td>
+				<td>15</td>
+				<td>22</td>
+				<td>16</td>			
+			</tr>
+			<tr>
+				<td>众神之王</td>
+				<td>19</td>
+				<td>15</td>
+				<td>20</td>
+			</tr>
+			<tr>
+				<td>流浪剑客</td>
+				<td>23</td>
+				<td>15</td>
+				<td>14</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script>
+        //点击表格排序 
+	    (function getValue(){
+           var titles = document.querySelectorAll('th');
+           var titlesArr = Array.prototype.slice.apply(titles);
+           var tbody = document.querySelector('tbody');
+           var trs = tbody.querySelectorAll('tr');
+           var trsArr = Array.prototype.slice.apply(trs);
+           titlesArr.forEach(function(item,index){
+           	  (function(_item,_index){
+           	  	var count = 0;
+           	  	_item.onclick = function(){
+           	  		count++;
+       	  			if(count%2){
+       	  				trsArr.sort(function(a,b){
+       	  					return a.children[_index].innerHTML - b.children[_index].innerHTML;
+       	  				})
+       	  			}else{
+       	  				trsArr.sort(function(a,b){
+       	  					return b.children[_index].innerHTML - a.children[_index].innerHTML;
+       	  				})
+       	  			};
+                    
+           	  		for(var i=0;i<trsArr.length;i++){
+           	  			tbody.appendChild(trsArr[i]);
+           	  		}
+           	  	}
+           	  })(item,index)
+           })
+	    })();
+	</script>
+</body>
+</html>
